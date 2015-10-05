@@ -56,46 +56,54 @@ public class ForecastFragment extends Fragment {
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(mForecastAdapter);
 
-        // Lição 2.9 adicionando conexão http
-        HttpURLConnection urlConnection = null;
-        BufferedReader reader = null;
-
-        String forecastJsonStr = null;
-
-        try {
-            URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?lat=-23.458&lon=-46.601&mode=json&units=metric&cnt=7");
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
-
-            InputStream inputStream = urlConnection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
-            if (inputStream == null){return null;}
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-
-            String line;
-            while ((line = reader.readLine()) != null){buffer.append(line + "\n");}
-
-            if (buffer.length() == 0){return null;}
-            forecastJsonStr = buffer.toString();
-        } catch (IOException e){
-            Log.e("PlaceHolderFragment", "Error ", e);
-            return null;
-        } finally {
-            if (urlConnection != null){
-                urlConnection.disconnect();
-            }
-            if (reader != null){
-                try {
-                    reader.close();
-                } catch (final IOException e){
-                    Log.e("PlaceHolderFragment", "Error ", e);
-                }
-            }
-        }
 
         return rootView;
     }
 
-    
+    public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
+
+        private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
+        // Lição 2.12 adicionando Task
+        @Override
+        protected Void doInBackground(Void... params) {
+            // Lição 2.9 adicionando conexão http
+            HttpURLConnection urlConnection = null;
+            BufferedReader reader = null;
+
+            String forecastJsonStr = null;
+
+            try {
+                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?lat=-23.458&lon=-46.601&mode=json&units=metric&cnt=7");
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream == null){return null;}
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null){buffer.append(line + "\n");}
+
+                if (buffer.length() == 0){return null;}
+                forecastJsonStr = buffer.toString();
+            } catch (IOException e){
+                Log.e(LOG_TAG, "Error ", e);
+                return null;
+            } finally {
+                if (urlConnection != null){
+                    urlConnection.disconnect();
+                }
+                if (reader != null){
+                    try {
+                        reader.close();
+                    } catch (final IOException e){
+                        Log.e(LOG_TAG, "Error closing stream", e);
+                    }
+                }
+            }
+            return null;
+        }
+    }
 }
