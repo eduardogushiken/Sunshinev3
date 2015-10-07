@@ -8,6 +8,13 @@
         android:inputType="text"
         android:singleLine="true" />
 
+    <ListPreference
+        android:title="@string/pref_units_label"
+        android:key="@string/pref_units_key"
+        android:defaultValue="@string/pref_units_metric"
+        android:entryValues="@array/pref_units_values"
+        android:entries="@array/pref_units_options" />
+
     <SwitchPreference
         android:key="example_switch"
         android:title="@string/pref_title_social_recommendations"
@@ -39,3 +46,4 @@
         android:positiveButtonText="@null" />
 
 </PreferenceScreen>
+

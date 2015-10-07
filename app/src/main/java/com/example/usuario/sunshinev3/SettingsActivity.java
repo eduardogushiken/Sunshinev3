@@ -39,6 +39,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+
+        //Lição 3.21 **** Travando ****
+        //bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
+        //bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
     }
 
     /**
