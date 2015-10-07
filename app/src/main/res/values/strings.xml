@@ -80,4 +80,7 @@
     <!-- Lição 3.24 -->
     <string name="action_map">Map Location</string>
 
+    <!-- Lição 3.26 -->
+    <string name="action_share">Share</string>
+
 </resources>
