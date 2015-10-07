@@ -76,5 +76,8 @@
     <string name="pref_units_key" translatable="false">units</string>
     <string name="pref_units_metric" translatable="false">metric</string>
     <string name="pref_units_imperial" translatable="false">imperial</string>
+    
+    <!-- Lição 3.24 -->
+    <string name="action_map">Map Location</string>
 
 </resources>
